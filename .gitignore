@@ -5,3 +5,7 @@ prestapyt.egg-info
 tags
 
 *.swp
+
+#  vscode
+.history
+.vscode
