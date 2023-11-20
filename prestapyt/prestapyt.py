@@ -91,7 +91,7 @@ class PrestaShopWebService(object):
 
     MIN_COMPATIBLE_VERSION = '1.4.0.17'
     # 4th version number is to avoid constant version changes
-    MAX_COMPATIBLE_VERSION = '1.7.8.999'
+    MAX_COMPATIBLE_VERSION = '8.0.1.999'
 
     def __init__(self, api_url, api_key, debug=False, session=None,
                  verbose=False):
@@ -275,6 +275,8 @@ class PrestaShopWebService(object):
             raise PrestaShopWebServiceError('HTTP response is empty')
 
         try:
+            # TSC - fix for empty tags
+            content = content.replace(b'<0><![CDATA[]]></0>', b'')
             parsed_content = ElementTree.fromstring(content)
         except ExpatError as err:
             raise PrestaShopWebServiceError(
